@@ -93,6 +93,16 @@ def top_streams(gid, n, languages):
     return out
 
 
+def live_by_login(logins):
+    """Nur die aktuell live gehenden Kanäle aus einer festen Liste (max. 100)."""
+    out = []
+    for s in _get("streams", [("user_login", l) for l in logins[:100]]):
+        out.append({"login": s["user_login"], "name": s["user_name"],
+                    "user_id": s["user_id"], "viewers": s["viewer_count"],
+                    "title": s["title"]})
+    return out
+
+
 def create_clip(broadcaster_id, duration):
     h = {"Client-Id": _cid(), "Authorization": f"Bearer {_user_token()}"}
     r = requests.post(f"{API}/clips", headers=h, timeout=15,

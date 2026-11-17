@@ -15,9 +15,13 @@ class Pipeline:
         self.monitor = chat.ChatMonitor(cfg["spike"], self.on_spike)
 
     async def refresh_loop(self):
-        gid = await asyncio.to_thread(twitch.game_id, self.cfg["game"])
+        fixed = self.cfg.get("channels") or []
+        gid = None if fixed else await asyncio.to_thread(twitch.game_id, self.cfg["game"])
         while True:
-            top = await asyncio.to_thread(twitch.top_streams, gid, self.cfg["top_n"], self.cfg["languages"])
+            if fixed:   # nur Kanäle aus Clipping-Programmen, sobald sie live sind
+                top = await asyncio.to_thread(twitch.live_by_login, fixed)
+            else:
+                top = await asyncio.to_thread(twitch.top_streams, gid, self.cfg["top_n"], self.cfg["languages"])
             self.streams = {s["login"]: s for s in top}
             await self.monitor.set_channels(self.streams)
             print(f"[streams] beobachte: " + ", ".join(f"{s['name']}({s['viewers']})" for s in top))

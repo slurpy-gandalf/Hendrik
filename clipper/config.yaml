@@ -1,3 +1,7 @@
+# Feste Kanalliste (Twitch-Logins), z.B. nur Streamer mit Clipping-Programm.
+# Wenn gefüllt, werden `game`/`top_n` ignoriert und nur diese Kanäle beobachtet, sobald sie live sind.
+channels: []
+
 # Welches Spiel beobachten? (Twitch-Kategoriename)
 game: "Grand Theft Auto VI"
 languages: ["de", "en"]      # leer lassen = alle Sprachen
