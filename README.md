@@ -14,3 +14,18 @@ Native-binary decompilation also needs Hopper, Ghidra, IDA or Kuna. Static analy
 apps, archives, Go binaries, model files and similar targets needs no extra engine.
 
 To update: bump the version in `.mcp.json`, then re-copy `.agents/skills/reverse-engineer-anything` from the matching REA release.
+
+## Clipper: automatische Viral-Clips von Top-Streamern
+
+Pipeline: Top-Streamer einer Kategorie (z.B. GTA 6) -> Chat-Spikes erkennen -> Twitch-Clip erstellen -> als 9:16 rendern (Blur-Hintergrund, Streamer-Credit, optional Untertitel) -> `out/` mit fertigem Video + Caption-Vorschlag. Gepostet wird von dir.
+
+Setup:
+1. App auf https://dev.twitch.tv/console anlegen (Client-Typ "Public" für Device-Login reicht nicht für App-Token: "Confidential" wählen), dann
+   `export TWITCH_CLIENT_ID=... TWITCH_CLIENT_SECRET=...`
+2. `pip install -r requirements.txt` (ffmpeg muss installiert sein)
+3. `python -m clipper auth` (einmaliger Login im Browser, Scope `clips:edit`)
+4. `python -m clipper run` – läuft dauerhaft; `clipper/config.yaml` steuert Spiel, Sprachen, Spike-Empfindlichkeit, Clip-Limit.
+
+Nur rendern: `python -m clipper render in.mp4 out.mp4`.
+
+Hinweis: Clips fremder Streamer gehören den Streamern. Immer Credit nennen (wird eingeblendet) und bei Monetarisierung vorher um Erlaubnis fragen.

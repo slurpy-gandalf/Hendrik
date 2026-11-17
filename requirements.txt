@@ -1,0 +1,5 @@
+requests
+pyyaml
+yt-dlp
+# optional: Untertitel
+# faster-whisper

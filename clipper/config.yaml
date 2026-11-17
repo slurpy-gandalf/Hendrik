@@ -1,0 +1,25 @@
+# Welches Spiel beobachten? (Twitch-Kategoriename)
+game: "Grand Theft Auto VI"
+languages: ["de", "en"]      # leer lassen = alle Sprachen
+top_n: 15                    # so viele Top-Streamer gleichzeitig beobachten
+refresh_streams_every: 300   # Sekunden, Liste der Top-Streamer neu laden
+
+spike:
+  window: 10                 # Sekunden für aktuelle Chat-Rate
+  baseline_window: 300       # Sekunden für "normale" Chat-Rate
+  ratio: 3.0                 # Rate muss X-mal über Baseline liegen
+  min_msgs_in_window: 25     # absolute Mindestmenge, vermeidet Fehlalarme
+  cooldown: 120              # Sekunden Pause pro Streamer nach einem Clip
+  hype_words: ["LUL","KEKW","OMG","POG","POGGERS","WTF","CLIP","CLIPIT","LMAO","NOOO","W","HOLY"]
+
+clip:
+  duration: 30               # Sekunden (5-60)
+  max_clips_per_hour: 12     # Schutz gegen Clip-Flut
+
+render:
+  width: 1080
+  height: 1920
+  captions: false            # true = Untertitel mit faster-whisper (pip install faster-whisper)
+  hashtags: ["#GTA6", "#GTAVI", "#gaming", "#twitch", "#fyp"]
+
+output_dir: "out"
